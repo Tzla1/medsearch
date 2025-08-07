@@ -13,7 +13,7 @@ import {
   CheckCircleIcon,
   XCircleIcon
 } from '@heroicons/react/24/outline';
-import toast from 'react-hot-toast';
+import { showDramaticError, showDramaticSuccess, showMedicalInfo } from '../../utils/alerts';
 
 interface UserProfile {
   _id: string;
@@ -103,7 +103,11 @@ export const ProfileStatusModal: React.FC<ProfileStatusModalProps> = ({
     } catch (error) {
       console.error('Error fetching profile:', error);
       setError('Error al cargar la información del perfil');
-      toast.error('Error al cargar el perfil');
+      showDramaticError(
+        'Error de Perfil Médico',
+        'No se pudo cargar la información de su perfil médico. Verifique su conexión a internet e intente nuevamente.',
+        () => fetchProfile()
+      );
     } finally {
       setLoading(false);
     }
@@ -129,13 +133,16 @@ export const ProfileStatusModal: React.FC<ProfileStatusModalProps> = ({
         const data = await response.json();
         setProfile(data.customer);
         setEditMode(false);
-        toast.success('Perfil actualizado exitosamente');
+        showDramaticSuccess(
+          '¡Perfil Actualizado!',
+          'Su información personal ha sido actualizada exitosamente en el sistema médico.'
+        );
       } else {
-        toast.error('Error al actualizar el perfil');
+        showDramaticError('Error de Actualización', 'No se pudo actualizar su perfil. Intente nuevamente.');
       }
     } catch (error) {
       console.error('Error updating profile:', error);
-      toast.error('Error al actualizar el perfil');
+      showDramaticError('Error de Conexión', 'No se pudo conectar con el servidor para actualizar su perfil.');
     } finally {
       setLoading(false);
     }

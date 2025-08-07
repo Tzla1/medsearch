@@ -13,7 +13,12 @@ import {
 import { DoctorFormModal } from '@components/modals/DoctorFormModal';
 import { SpecialtyFormModal } from '@components/modals/SpecialtyFormModal';
 import { AppointmentModal } from '@components/modals/AppointmentModal';
-import toast from 'react-hot-toast';
+import {
+  showDramaticError,
+  showDramaticSuccess,
+  showDangerousConfirmation,
+  showToast
+} from '../utils/alerts';
 
 interface ManagementDashboardProps {
   activeTab: 'doctors' | 'specialties' | 'appointments' | 'reviews';
@@ -106,40 +111,46 @@ export const AdminManagementDashboard: React.FC<ManagementDashboardProps> = ({
           hasPrev: false
         });
       } else {
-        toast.error('Error cargando datos');
+        showDramaticError('Error de Carga', 'No se pudieron cargar los datos del servidor');
       }
     } catch (error) {
       console.error('Error fetching data:', error);
-      toast.error('Error cargando datos');
+      showDramaticError('Error de Conexión', 'No se pudo conectar con el servidor. Verifique su conexión a internet.');
     } finally {
       setLoading(false);
     }
   };
 
   const handleDelete = async (id: string) => {
-    if (!confirm('¿Estás seguro de que deseas eliminar este elemento?')) {
-      return;
-    }
+    const itemType = activeTab === 'doctors' ? 'doctor' : activeTab === 'specialties' ? 'especialidad' : 'elemento';
+    
+    showDangerousConfirmation(
+      '¡Acción Irreversible!',
+      `¿Está completamente seguro de que desea eliminar este ${itemType}? Esta acción no se puede deshacer y podría afectar citas y datos relacionados.`,
+      `Sí, eliminar ${itemType}`,
+      async () => {
+        try {
+          const token = await getToken();
+          const response = await fetch(`${import.meta.env.VITE_API_URL}/${activeTab}/${id}`, {
+            method: 'DELETE',
+            headers: {
+              'Authorization': `Bearer ${token}`
+            }
+          });
 
-    try {
-      const token = await getToken();
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/${activeTab}/${id}`, {
-        method: 'DELETE',
-        headers: {
-          'Authorization': `Bearer ${token}`
+          if (response.ok) {
+            showDramaticSuccess('¡Eliminado Exitosamente!', `El ${itemType} ha sido eliminado del sistema.`, () => {
+              fetchData();
+            });
+          } else {
+            showDramaticError('Error al Eliminar', `No se pudo eliminar el ${itemType}. Intente nuevamente.`);
+          }
+        } catch (error) {
+          console.error('Error deleting item:', error);
+          showDramaticError('Error de Conexión', 'No se pudo conectar con el servidor para eliminar el elemento.');
         }
-      });
-
-      if (response.ok) {
-        toast.success('Elemento eliminado exitosamente');
-        fetchData();
-      } else {
-        toast.error('Error al eliminar elemento');
       }
-    } catch (error) {
-      console.error('Error deleting item:', error);
-      toast.error('Error al eliminar elemento');
-    }
+    );
   };
 
   const openModal = (item?: any) => {
@@ -170,7 +181,7 @@ export const AdminManagementDashboard: React.FC<ManagementDashboardProps> = ({
   };
 
   const getStatusBadge = (status: string) => {
-    const statusColors = {
+    const statusColors: Record<string, string> = {
       verified: 'bg-green-100 text-green-800',
       pending_verification: 'bg-yellow-100 text-yellow-800',
       rejected: 'bg-red-100 text-red-800',
@@ -179,7 +190,9 @@ export const AdminManagementDashboard: React.FC<ManagementDashboardProps> = ({
       confirmed: 'bg-blue-100 text-blue-800',
       cancelled: 'bg-red-100 text-red-800',
       approved: 'bg-green-100 text-green-800',
-      flagged: 'bg-red-100 text-red-800'
+      flagged: 'bg-red-100 text-red-800',
+      active: 'bg-green-100 text-green-800',
+      inactive: 'bg-gray-100 text-gray-800'
     };
 
     return (

@@ -11,7 +11,7 @@ import {
   MapPinIcon,
   PhoneIcon
 } from '@heroicons/react/24/outline';
-import toast from 'react-hot-toast';
+import { showDramaticError, showMedicalInfo, showToast } from '../../utils/alerts';
 
 interface Appointment {
   _id: string;
@@ -117,7 +117,11 @@ export const AppointmentStatusModal: React.FC<AppointmentStatusModalProps> = ({
     } catch (error) {
       console.error('Error fetching appointments:', error);
       setError('Error al cargar las citas');
-      toast.error('Error al cargar las citas');
+      showDramaticError(
+        'Error de Conexión',
+        'No se pudieron cargar sus citas médicas. Verifique su conexión a internet e intente nuevamente.',
+        () => fetchAppointments()
+      );
     } finally {
       setLoading(false);
     }

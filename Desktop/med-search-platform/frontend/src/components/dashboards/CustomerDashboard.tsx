@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   CalendarIcon,
   MagnifyingGlassIcon,
@@ -10,16 +10,146 @@ import {
   DocumentTextIcon,
   CogIcon
 } from '@heroicons/react/24/outline';
-import { useUser, SignOutButton } from '@clerk/clerk-react';
+import { useUser, useAuth, SignOutButton } from '@clerk/clerk-react';
 import { AppointmentStatusModal } from '@components/modals/AppointmentStatusModal';
 import { AppointmentHistoryModal } from '@components/modals/AppointmentHistoryModal';
 import { ProfileStatusModal } from '@components/modals/ProfileStatusModal';
+import { showDramaticError, showToast } from '../../utils/alerts';
+
+interface Appointment {
+  _id: string;
+  doctorId: {
+    userId: {
+      firstName: string;
+      lastName: string;
+      profileImageUrl?: string;
+    };
+    specialties: Array<{ name: string }>;
+  };
+  scheduledDate: string;
+  status: string;
+}
+
+interface FavoriteDoctor {
+  _id: string;
+  userId: {
+    firstName: string;
+    lastName: string;
+    profileImageUrl?: string;
+  };
+  specialties: Array<{ name: string }>;
+  ratings?: {
+    average: number;
+    count: number;
+  };
+}
 
 export const CustomerDashboard: React.FC = () => {
   const { user } = useUser();
+  const { getToken } = useAuth();
+  
+  // Modal states
   const [appointmentStatusModal, setAppointmentStatusModal] = useState(false);
   const [appointmentHistoryModal, setAppointmentHistoryModal] = useState(false);
   const [profileStatusModal, setProfileStatusModal] = useState(false);
+  
+  // Data states
+  const [upcomingAppointments, setUpcomingAppointments] = useState<Appointment[]>([]);
+  const [favoriteDoctors, setFavoriteDoctors] = useState<FavoriteDoctor[]>([]);
+  const [loading, setLoading] = useState(true);
+  
+  useEffect(() => {
+    fetchDashboardData();
+  }, []);
+  
+  const fetchDashboardData = async () => {
+    setLoading(true);
+    try {
+      await Promise.all([
+        fetchUpcomingAppointments(),
+        fetchFavoriteDoctors()
+      ]);
+    } catch (error) {
+      console.error('Error loading dashboard data:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  
+  const fetchUpcomingAppointments = async () => {
+    try {
+      const token = await getToken();
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/appointments/customer?limit=3`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        const upcoming = data.appointments?.filter((appointment: Appointment) => {
+          const appointmentDate = new Date(appointment.scheduledDate);
+          const now = new Date();
+          return appointmentDate >= now &&
+                 appointment.status !== 'cancelled' &&
+                 appointment.status !== 'completed';
+        }).slice(0, 3) || [];
+        
+        setUpcomingAppointments(upcoming);
+      }
+    } catch (error) {
+      console.error('Error fetching appointments:', error);
+      showDramaticError(
+        'Error de Citas',
+        'No se pudieron cargar sus próximas citas. Verifique su conexión.',
+        () => fetchUpcomingAppointments()
+      );
+    }
+  };
+  
+  const fetchFavoriteDoctors = async () => {
+    try {
+      const token = await getToken();
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/customers/favorites`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setFavoriteDoctors(data.favorites?.slice(0, 3) || []);
+      }
+    } catch (error) {
+      console.error('Error fetching favorites:', error);
+      // Silent error for favorites as it's not critical
+    }
+  };
+  
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    const now = new Date();
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const appointmentDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+    
+    const daysDiff = Math.floor((appointmentDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+    
+    let dateLabel = '';
+    if (daysDiff === 0) {
+      dateLabel = 'Hoy';
+    } else if (daysDiff === 1) {
+      dateLabel = 'Mañana';
+    } else if (daysDiff > 0) {
+      dateLabel = `En ${daysDiff} días`;
+    }
+    
+    const time = date.toLocaleTimeString('es-ES', {
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+    
+    return `${dateLabel}, ${time}`;
+  };
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -163,51 +293,71 @@ export const CustomerDashboard: React.FC = () => {
                 <h2 className="text-xl font-semibold text-gray-900">Próximas Citas</h2>
               </div>
               <div className="p-6">
-                <div className="space-y-4">
-                  {/* Example appointments */}
-                  <div className="flex items-center p-4 bg-blue-50 rounded-lg">
-                    <div className="flex-shrink-0">
-                      <img 
-                        src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=60&h=60&fit=crop&crop=face" 
-                        alt="Doctor" 
-                        className="w-12 h-12 rounded-full"
-                      />
-                    </div>
-                    <div className="ml-4 flex-1">
-                      <h4 className="font-semibold text-gray-900">Dra. María González</h4>
-                      <p className="text-sm text-gray-600">Cardiología</p>
-                      <p className="text-sm text-blue-600">Hoy, 3:00 PM</p>
-                    </div>
-                    <div className="flex-shrink-0">
-                      <button className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-blue-700">
-                        Ver Detalles
-                      </button>
-                    </div>
+                {loading ? (
+                  <div className="flex justify-center py-8">
+                    <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600"></div>
                   </div>
-
-                  <div className="flex items-center p-4 bg-green-50 rounded-lg">
-                    <div className="flex-shrink-0">
-                      <img 
-                        src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=60&h=60&fit=crop&crop=face" 
-                        alt="Doctor" 
-                        className="w-12 h-12 rounded-full"
-                      />
-                    </div>
-                    <div className="ml-4 flex-1">
-                      <h4 className="font-semibold text-gray-900">Dr. Carlos Rodríguez</h4>
-                      <p className="text-sm text-gray-600">Pediatría</p>
-                      <p className="text-sm text-green-600">Mañana, 10:00 AM</p>
-                    </div>
-                    <div className="flex-shrink-0">
-                      <button className="bg-green-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-green-700">
-                        Ver Detalles
-                      </button>
-                    </div>
+                ) : upcomingAppointments.length === 0 ? (
+                  <div className="text-center py-8">
+                    <CalendarIcon className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+                    <h3 className="text-lg font-medium text-gray-900 mb-2">
+                      No tienes citas próximas
+                    </h3>
+                    <p className="text-gray-600 mb-4">
+                      Agenda una cita con tu especialista favorito.
+                    </p>
+                    <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+                      Buscar Doctor
+                    </button>
                   </div>
-                </div>
+                ) : (
+                  <div className="space-y-4">
+                    {upcomingAppointments.map((appointment, index) => (
+                      <div key={appointment._id} className={`flex items-center p-4 rounded-lg ${
+                        index === 0 ? 'bg-blue-50' : index === 1 ? 'bg-green-50' : 'bg-purple-50'
+                      }`}>
+                        <div className="flex-shrink-0">
+                          <img
+                            src={appointment.doctorId.userId.profileImageUrl || '/api/placeholder/48/48'}
+                            alt="Doctor"
+                            className="w-12 h-12 rounded-full object-cover"
+                          />
+                        </div>
+                        <div className="ml-4 flex-1">
+                          <h4 className="font-semibold text-gray-900">
+                            Dr. {appointment.doctorId.userId.firstName} {appointment.doctorId.userId.lastName}
+                          </h4>
+                          <p className="text-sm text-gray-600">
+                            {appointment.doctorId.specialties?.[0]?.name || 'Médico General'}
+                          </p>
+                          <p className={`text-sm font-medium ${
+                            index === 0 ? 'text-blue-600' : index === 1 ? 'text-green-600' : 'text-purple-600'
+                          }`}>
+                            {formatDate(appointment.scheduledDate)}
+                          </p>
+                        </div>
+                        <div className="flex-shrink-0">
+                          <button
+                            onClick={() => setAppointmentStatusModal(true)}
+                            className={`text-white px-4 py-2 rounded-lg text-sm transition-colors ${
+                              index === 0 ? 'bg-blue-600 hover:bg-blue-700' :
+                              index === 1 ? 'bg-green-600 hover:bg-green-700' :
+                              'bg-purple-600 hover:bg-purple-700'
+                            }`}
+                          >
+                            Ver Detalles
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
 
                 <div className="mt-6 text-center">
-                  <button className="text-blue-600 hover:text-blue-500 font-medium">
+                  <button
+                    onClick={() => setAppointmentStatusModal(true)}
+                    className="text-blue-600 hover:text-blue-500 font-medium"
+                  >
                     Ver todas las citas →
                   </button>
                 </div>
@@ -223,23 +373,43 @@ export const CustomerDashboard: React.FC = () => {
                 <h3 className="text-lg font-semibold text-gray-900">Doctores Favoritos</h3>
               </div>
               <div className="p-6">
-                <div className="space-y-4">
-                  <div className="flex items-center">
-                    <img 
-                      src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=40&h=40&fit=crop&crop=face" 
-                      alt="Doctor" 
-                      className="w-10 h-10 rounded-full"
-                    />
-                    <div className="ml-3 flex-1">
-                      <p className="font-medium text-gray-900">Dra. Ana Martínez</p>
-                      <p className="text-sm text-gray-600">Dermatología</p>
-                    </div>
-                    <div className="flex items-center">
-                      <StarIcon className="h-4 w-4 text-yellow-400 fill-current" />
-                      <span className="text-sm text-gray-600 ml-1">5.0</span>
-                    </div>
+                {loading ? (
+                  <div className="flex justify-center py-4">
+                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-600"></div>
                   </div>
-                </div>
+                ) : favoriteDoctors.length === 0 ? (
+                  <div className="text-center py-6">
+                    <HeartIcon className="h-8 w-8 text-gray-400 mx-auto mb-2" />
+                    <p className="text-sm text-gray-600">No tienes doctores favoritos</p>
+                    <p className="text-xs text-gray-500 mt-1">Agrega doctores desde tu historial</p>
+                  </div>
+                ) : (
+                  <div className="space-y-4">
+                    {favoriteDoctors.map((doctor) => (
+                      <div key={doctor._id} className="flex items-center">
+                        <img
+                          src={doctor.userId.profileImageUrl || '/api/placeholder/40/40'}
+                          alt="Doctor"
+                          className="w-10 h-10 rounded-full object-cover"
+                        />
+                        <div className="ml-3 flex-1">
+                          <p className="font-medium text-gray-900">
+                            Dr. {doctor.userId.firstName} {doctor.userId.lastName}
+                          </p>
+                          <p className="text-sm text-gray-600">
+                            {doctor.specialties?.[0]?.name || 'Médico General'}
+                          </p>
+                        </div>
+                        <div className="flex items-center">
+                          <StarIcon className="h-4 w-4 text-yellow-400 fill-current" />
+                          <span className="text-sm text-gray-600 ml-1">
+                            {doctor.ratings?.average?.toFixed(1) || '5.0'}
+                          </span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
                 <div className="mt-4 text-center">
                   <button className="text-blue-600 hover:text-blue-500 text-sm font-medium">
                     Ver todos →

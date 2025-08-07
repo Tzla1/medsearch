@@ -13,7 +13,7 @@ import {
   HeartIcon
 } from '@heroicons/react/24/outline';
 import { StarIcon as StarIconSolid } from '@heroicons/react/24/solid';
-import toast from 'react-hot-toast';
+import { showDramaticError, showDramaticSuccess, showToast } from '../../utils/alerts';
 
 interface AppointmentHistory {
   _id: string;
@@ -101,7 +101,11 @@ export const AppointmentHistoryModal: React.FC<AppointmentHistoryModalProps> = (
     } catch (error) {
       console.error('Error fetching appointment history:', error);
       setError('Error al cargar el historial de citas');
-      toast.error('Error al cargar el historial');
+      showDramaticError(
+        'Error de Historial Médico',
+        'No se pudo cargar su historial médico. Verifique su conexión a internet e intente nuevamente.',
+        () => fetchAppointmentHistory()
+      );
     } finally {
       setLoading(false);
     }
@@ -120,13 +124,13 @@ export const AppointmentHistoryModal: React.FC<AppointmentHistoryModalProps> = (
       });
 
       if (response.ok) {
-        toast.success('Doctor agregado a favoritos');
+        showDramaticSuccess('¡Agregado a Favoritos!', 'El doctor ha sido agregado exitosamente a su lista de favoritos.');
       } else {
-        toast.error('Error al agregar a favoritos');
+        showDramaticError('Error al Agregar', 'No se pudo agregar el doctor a favoritos. Intente nuevamente.');
       }
     } catch (error) {
       console.error('Error adding to favorites:', error);
-      toast.error('Error al agregar a favoritos');
+      showDramaticError('Error de Conexión', 'No se pudo conectar con el servidor para agregar a favoritos.');
     }
   };
 
