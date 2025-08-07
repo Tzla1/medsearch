@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Med Search Platform - Encuentra tu médico especialista cerca de ti">
+    <meta name="keywords" content="médicos, especialistas, consulta médica, citas médicas">
+    <title>Med Search Platform - Encuentra tu médico especialista</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/components.css">
+    <link rel="stylesheet" href="styles/responsive.css">
+</head>
+<body>
+    <!-- Header Navigation -->
+    <header class="header-main" id="header">
+        <div class="container-xl">
+            <nav class="navbar">
+                <!-- Logo -->
+                <div class="navbar-brand">
+                    <a href="index.html" class="logo-link">
+                        <img src="assets/logo.svg" alt="Med Search" class="logo" width="140" height="32">
+                        <span class="logo-text">Med Search</span>
+                    </a>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <ul class="navbar-nav desktop-nav">
+                    <li><a href="#inicio" class="nav-link active">Inicio</a></li>
+                    <li><a href="#especialidades" class="nav-link">Especialidades</a></li>
+                    <li><a href="#como-funciona" class="nav-link">Cómo funciona</a></li>
+                    <li><a href="#contacto" class="nav-link">Contacto</a></li>
+                </ul>
+                
+                <!-- Auth Buttons -->
+                <div class="navbar-actions desktop-nav">
+                    <a href="login.html" class="btn btn-outline">Iniciar Sesión</a>
+                    <a href="register.html" class="btn btn-primary">Registrarse</a>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <button class="menu-toggle mobile-nav" aria-label="Menú" aria-expanded="false">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+            </nav>
+            
+            <!-- Mobile Navigation Menu -->
+            <div class="mobile-menu" id="mobile-menu">
+                <ul class="mobile-nav-list">
+                    <li><a href="#inicio" class="mobile-nav-link">Inicio</a></li>
+                    <li><a href="#especialidades" class="mobile-nav-link">Especialidades</a></li>
+                    <li><a href="#como-funciona" class="mobile-nav-link">Cómo funciona</a></li>
+                    <li><a href="#contacto" class="mobile-nav-link">Contacto</a></li>
+                    <li class="mobile-auth-buttons">
+                        <a href="login.html" class="btn btn-outline btn-full">Iniciar Sesión</a>
+                        <a href="register.html" class="btn btn-primary btn-full">Registrarse</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="hero-section" id="inicio">
+            <div class="container-xl">
+                <div class="hero-content">
+                    <!-- Hero Text -->
+                    <div class="hero-text">
+                        <h1 class="hero-title">
+                            Encuentra tu <span class="text-primary">médico especialista</span> 
+                            cerca de ti
+                        </h1>
+                        <p class="hero-description">
+                            Conectamos pacientes con los mejores profesionales de la salud. 
+                            Busca, compara y agenda citas de forma rápida y segura.
+                        </p>
+                        
+                        <!-- Hero Search Form -->
+                        <form class="hero-search-form" id="hero-search-form">
+                            <div class="search-input-group">
+                                <div class="input-with-icon">
+                                    <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                        <circle cx="11" cy="11" r="8"></circle>
+                                        <path d="m21 21-4.35-4.35"></path>
+                                    </svg>
+                                    <input 
+                                        type="text" 
+                                        placeholder="Buscar médico o especialidad..."
+                                        class="search-input"
+                                        id="hero-search-input"
+                                        autocomplete="off">
+                                </div>
+                                
+                                <select class="specialty-select" id="hero-specialty-select">
+                                    <option value="">Todas las especialidades</option>
+                                    <option value="1">Cardiología</option>
+                                    <option value="2">Pediatría</option>
+                                    <option value="3">Dermatología</option>
+                                    <option value="4">Neurología</option>
+                                    <option value="5">Ginecología</option>
+                                    <option value="6">Oftalmología</option>
+                                    <option value="11">Medicina General</option>
+                                </select>
+                                
+                                <button type="submit" class="btn btn-primary btn-search">
+                                    <svg class="search-btn-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                        <circle cx="11" cy="11" r="8"></circle>
+                                        <path d="m21 21-4.35-4.35"></path>
+                                    </svg>
+                                    <span class="btn-text">Buscar</span>
+                                </button>
+                            </div>
+                        </form>
+                        
+                        <!-- Quick Stats -->
+                        <div class="hero-stats">
+                            <div class="stat-item">
+                                <span class="stat-number">500+</span>
+                                <span class="stat-label">Médicos registrados</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">15</span>
+                                <span class="stat-label">Especialidades</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">1000+</span>
+                                <span class="stat-label">Pacientes satisfechos</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Hero Image -->
+                    <div class="hero-image">
+                        <img src="assets/hero-doctor.jpg" alt="Médico profesional" class="hero-img">
+                        <!-- Floating Card Animation -->
+                        <div class="floating-card floating-card-1">
+                            <div class="card-content">
+                                <div class="card-avatar">👨‍⚕️</div>
+                                <div class="card-text">
+                                    <span class="card-name">Dr. García</span>
+                                    <span class="card-specialty">Cardiólogo</span>
+                                </div>
+                                <div class="card-rating">⭐ 4.9</div>
+                            </div>
+                        </div>
+                        <div class="floating-card floating-card-2">
+                            <div class="card-content">
+                                <div class="card-avatar">👩‍⚕️</div>
+                                <div class="card-text">
+                                    <span class="card-name">Dra. López</span>
+                                    <span class="card-specialty">Pediatra</span>
+                                </div>
+                                <div class="card-rating">⭐ 4.8</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Specialties Section -->
+        <section class="specialties-section" id="especialidades">
+            <div class="container-xl">
+                <div class="section-header">
+                    <h2 class="section-title">Especialidades Médicas</h2>
+                    <p class="section-description">
+                        Encuentra el especialista que necesitas en tu área
+                    </p>
+                </div>
+                
+                <div class="specialties-grid" id="specialties-grid">
+                    <!-- Specialty cards will be generated by JavaScript -->
+                </div>
+                
+                <div class="section-cta">
+                    <a href="search.html" class="btn btn-outline btn-large">Ver todos los médicos</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Doctors Section -->
+        <section class="featured-doctors-section">
+            <div class="container-xl">
+                <div class="section-header">
+                    <h2 class="section-title">Médicos Destacados</h2>
+                    <p class="section-description">
+                        Profesionales mejor calificados de nuestra plataforma
+                    </p>
+                </div>
+                
+                <div class="doctors-grid" id="featured-doctors-grid">
+                    <!-- Featured doctor cards will be generated by JavaScript -->
+                </div>
+                
+                <div class="section-cta">
+                    <a href="search.html" class="btn btn-primary btn-large">Buscar más médicos</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works Section -->
+        <section class="how-it-works-section" id="como-funciona">
+            <div class="container-xl">
+                <div class="section-header">
+                    <h2 class="section-title">¿Cómo Funciona?</h2>
+                    <p class="section-description">
+                        Encuentra y conecta con médicos en 3 simples pasos
+                    </p>
+                </div>
+                
+                <div class="steps-grid">
+                    <div class="step-card">
+                        <div class="step-icon">
+                            <span class="step-number">1</span>
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <path d="m21 21-4.35-4.35"></path>
+                            </svg>
+                        </div>
+                        <h3 class="step-title">Busca tu especialista</h3>
+                        <p class="step-description">
+                            Usa nuestro buscador para encontrar médicos por especialidad, ubicación o nombre.
+                        </p>
+                    </div>
+                    
+                    <div class="step-card">
+                        <div class="step-icon">
+                            <span class="step-number">2</span>
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                            </svg>
+                        </div>
+                        <h3 class="step-title">Revisa perfiles</h3>
+                        <p class="step-description">
+                            Compara experiencia, calificaciones y tarifas de los profesionales disponibles.
+                        </p>
+                    </div>
+                    
+                    <div class="step-card">
+                        <div class="step-icon">
+                            <span class="step-number">3</span>
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M8 2v4"></path>
+                                <path d="M16 2v4"></path>
+                                <rect width="18" height="18" x="3" y="4" rx="2"></rect>
+                                <path d="M3 10h18"></path>
+                            </svg>
+                        </div>
+                        <h3 class="step-title">Agenda tu cita</h3>
+                        <p class="step-description">
+                            Contacta directamente al médico y agenda tu consulta de forma rápida y segura.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section for Doctors -->
+        <section class="cta-doctors-section">
+            <div class="container-xl">
+                <div class="cta-content">
+                    <div class="cta-text">
+                        <h2 class="cta-title">¿Eres médico especialista?</h2>
+                        <p class="cta-description">
+                            Únete a nuestra plataforma y conecta con miles de pacientes que buscan tus servicios.
+                            Gestiona tu perfil profesional y aumenta tu práctica médica.
+                        </p>
+                        <div class="cta-features">
+                            <div class="feature-item">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M20 6L9 17l-5-5"></path>
+                                </svg>
+                                <span>Perfil profesional verificado</span>
+                            </div>
+                            <div class="feature-item">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M20 6L9 17l-5-5"></path>
+                                </svg>
+                                <span>Gestión de agenda y citas</span>
+                            </div>
+                            <div class="feature-item">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M20 6L9 17l-5-5"></path>
+                                </svg>
+                                <span>Comunicación directa con pacientes</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cta-actions">
+                        <a href="register.html?type=doctor" class="btn btn-primary btn-large">
+                            Registrarse como médico
+                        </a>
+                        <a href="#contacto" class="btn btn-outline btn-large">
+                            Más información
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer" id="contacto">
+        <div class="container-xl">
+            <div class="footer-content">
+                <!-- Footer Brand -->
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <img src="assets/logo.svg" alt="Med Search" class="logo">
+                        <span class="logo-text">Med Search</span>
+                    </div>
+                    <p class="footer-description">
+                        Conectando pacientes con los mejores profesionales de la salud 
+                        de forma rápida, segura y confiable.
+                    </p>
+                    <div class="footer-social">
+                        <a href="#" class="social-link" aria-label="Facebook">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Twitter">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Instagram">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 6.62 5.367 11.987 11.988 11.987c6.62 0 11.987-5.367 11.987-11.987C24.014 5.367 18.637.001 12.017.001zM8.449 16.988c-1.297 0-2.448-.73-3.016-1.788L4.659 8.852c.568-1.058 1.719-1.788 3.016-1.788c1.297 0 2.448.73 3.016 1.788L11.465 15.2C10.897 16.258 9.746 16.988 8.449 16.988z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Footer Links -->
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4 class="footer-title">Pacientes</h4>
+                        <ul class="footer-list">
+                            <li><a href="search.html" class="footer-link">Buscar médicos</a></li>
+                            <li><a href="#especialidades" class="footer-link">Especialidades</a></li>
+                            <li><a href="register.html" class="footer-link">Crear cuenta</a></li>
+                            <li><a href="#" class="footer-link">Preguntas frecuentes</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4 class="footer-title">Médicos</h4>
+                        <ul class="footer-list">
+                            <li><a href="register.html?type=doctor" class="footer-link">Registrarse</a></li>
+                            <li><a href="#" class="footer-link">Beneficios</a></li>
+                            <li><a href="#" class="footer-link">Tarifas</a></li>
+                            <li><a href="#" class="footer-link">Soporte técnico</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4 class="footer-title">Empresa</h4>
+                        <ul class="footer-list">
+                            <li><a href="#" class="footer-link">Acerca de nosotros</a></li>
+                            <li><a href="#" class="footer-link">Términos de uso</a></li>
+                            <li><a href="#" class="footer-link">Política de privacidad</a></li>
+                            <li><a href="#" class="footer-link">Contacto</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4 class="footer-title">Contacto</h4>
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                                </svg>
+                                <span>+52 55 1234 5678</span>
+                            </div>
+                            <div class="contact-item">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                    <polyline points="22,6 12,13 2,6"></polyline>
+                                </svg>
+                                <span>contacto@medsearch.com</span>
+                            </div>
+                            <div class="contact-item">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                    <circle cx="12" cy="10" r="3"></circle>
+                                </svg>
+                                <span>Ciudad de México, México</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Footer Bottom -->
+            <div class="footer-bottom">
+                <p class="footer-copyright">
+                    © 2024 Med Search Platform. Todos los derechos reservados.
+                </p>
+                <div class="footer-legal">
+                    <a href="#" class="legal-link">Términos de Servicio</a>
+                    <span class="separator">|</span>
+                    <a href="#" class="legal-link">Política de Privacidad</a>
+                    <span class="separator">|</span>
+                    <a href="#" class="legal-link">Cookies</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loading-overlay">
+        <div class="loading-spinner">
+            <div class="spinner"></div>
+            <p class="loading-text">Cargando...</p>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="scripts/utils.js"></script>
+    <script src="scripts/api.js"></script>
+    <script src="scripts/components.js"></script>
+    <script src="scripts/index.js"></script>
+</body>
+</html>

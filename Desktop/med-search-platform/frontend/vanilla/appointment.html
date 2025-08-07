@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Agendar Cita - Med Search Platform">
+    <meta name="keywords" content="agendar cita, consulta médica, doctor, especialista">
+    <title>Agendar Cita - Med Search Platform</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/components.css">
+    <link rel="stylesheet" href="styles/responsive.css">
+</head>
+<body>
+    <!-- Header Navigation -->
+    <header class="header-main" id="header">
+        <div class="container-xl">
+            <nav class="navbar">
+                <!-- Logo -->
+                <div class="navbar-brand">
+                    <a href="index.html" class="logo-link">
+                        <img src="assets/logo.svg" alt="Med Search" class="logo" width="140" height="32">
+                        <span class="logo-text">Med Search</span>
+                    </a>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <ul class="navbar-nav desktop-nav">
+                    <li><a href="index.html" class="nav-link">Inicio</a></li>
+                    <li><a href="search.html" class="nav-link">Buscar</a></li>
+                    <li><a href="#" class="nav-link active">Agendar Cita</a></li>
+                </ul>
+                
+                <!-- Auth Buttons -->
+                <div class="navbar-actions desktop-nav">
+                    <a href="login.html" class="btn btn-outline">Iniciar Sesión</a>
+                    <a href="register.html" class="btn btn-primary">Registrarse</a>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <button class="menu-toggle mobile-nav" aria-label="Menú" aria-expanded="false">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="appointment-main">
+        <!-- Breadcrumb -->
+        <section class="breadcrumb-section">
+            <div class="container-xl">
+                <nav class="breadcrumb">
+                    <a href="index.html" class="breadcrumb-link">Inicio</a>
+                    <span class="breadcrumb-separator">›</span>
+                    <a href="search.html" class="breadcrumb-link">Buscar Doctores</a>
+                    <span class="breadcrumb-separator">›</span>
+                    <span class="breadcrumb-current">Agendar Cita</span>
+                </nav>
+            </div>
+        </section>
+
+        <!-- Appointment Booking Section -->
+        <section class="appointment-booking">
+            <div class="container-xl">
+                <div class="appointment-container">
+                    <!-- Doctor Information -->
+                    <div class="doctor-info-card" id="doctor-info">
+                        <div class="doctor-header">
+                            <div class="doctor-avatar">
+                                <img src="assets/doctors/doctor-1.jpg" alt="Doctor" class="doctor-image" id="doctor-image">
+                            </div>
+                            <div class="doctor-details">
+                                <h1 class="doctor-name" id="doctor-name">Dr. Roberto Martínez</h1>
+                                <p class="doctor-specialty" id="doctor-specialty">Cardiología</p>
+                                <div class="doctor-rating">
+                                    <div class="rating-stars">
+                                        <span class="star filled">★</span>
+                                        <span class="star filled">★</span>
+                                        <span class="star filled">★</span>
+                                        <span class="star filled">★</span>
+                                        <span class="star">★</span>
+                                    </div>
+                                    <span class="rating-score" id="doctor-rating">4.8</span>
+                                    <span class="rating-count" id="doctor-reviews">(127 reseñas)</span>
+                                </div>
+                                <div class="doctor-location">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                        <circle cx="12" cy="10" r="3"></circle>
+                                    </svg>
+                                    <span id="doctor-location">Consultorio Médico Central</span>
+                                </div>
+                                <div class="doctor-fee">
+                                    <span class="fee-label">Costo de consulta:</span>
+                                    <span class="fee-amount" id="doctor-fee">$800</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Appointment Form -->
+                    <div class="appointment-form-container">
+                        <h2 class="form-title">Agendar Nueva Cita</h2>
+                        <p class="form-subtitle">Complete los detalles para agendar su consulta</p>
+
+                        <form class="appointment-form" id="appointment-form">
+                            <!-- Patient Information -->
+                            <div class="form-section">
+                                <h3 class="section-title">Información del Paciente</h3>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="patient-name" class="form-label required">Nombre Completo</label>
+                                        <input 
+                                            type="text" 
+                                            id="patient-name" 
+                                            name="patientName" 
+                                            class="form-input" 
+                                            placeholder="Su nombre completo"
+                                            required>
+                                        <div class="form-error" id="patient-name-error"></div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="patient-email" class="form-label required">Correo Electrónico</label>
+                                        <input 
+                                            type="email" 
+                                            id="patient-email" 
+                                            name="patientEmail" 
+                                            class="form-input" 
+                                            placeholder="su@email.com"
+                                            required>
+                                        <div class="form-error" id="patient-email-error"></div>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="patient-phone" class="form-label required">Teléfono</label>
+                                        <input 
+                                            type="tel" 
+                                            id="patient-phone" 
+                                            name="patientPhone" 
+                                            class="form-input" 
+                                            placeholder="+52 55 1234 5678"
+                                            required>
+                                        <div class="form-error" id="patient-phone-error"></div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="patient-age" class="form-label">Edad</label>
+                                        <input 
+                                            type="number" 
+                                            id="patient-age" 
+                                            name="patientAge" 
+                                            class="form-input" 
+                                            placeholder="Edad"
+                                            min="1" max="120">
+                                        <div class="form-error" id="patient-age-error"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Appointment Details -->
+                            <div class="form-section">
+                                <h3 class="section-title">Detalles de la Cita</h3>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="appointment-date" class="form-label required">Fecha Preferida</label>
+                                        <input 
+                                            type="date" 
+                                            id="appointment-date" 
+                                            name="appointmentDate" 
+                                            class="form-input" 
+                                            required>
+                                        <div class="form-error" id="appointment-date-error"></div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="appointment-time" class="form-label required">Hora Preferida</label>
+                                        <select 
+                                            id="appointment-time" 
+                                            name="appointmentTime" 
+                                            class="form-select" 
+                                            required>
+                                            <option value="">Seleccionar hora</option>
+                                        </select>
+                                        <div class="form-error" id="appointment-time-error"></div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="appointment-reason" class="form-label required">Motivo de la Consulta</label>
+                                    <select 
+                                        id="appointment-reason" 
+                                        name="appointmentReason" 
+                                        class="form-select" 
+                                        required>
+                                        <option value="">Seleccionar motivo</option>
+                                        <option value="consulta-general">Consulta General</option>
+                                        <option value="revision-periodica">Revisión Periódica</option>
+                                        <option value="segunda-opinion">Segunda Opinión</option>
+                                        <option value="seguimiento">Seguimiento</option>
+                                        <option value="urgencia">Urgencia</option>
+                                        <option value="otro">Otro</option>
+                                    </select>
+                                    <div class="form-error" id="appointment-reason-error"></div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="appointment-notes" class="form-label">Notas Adicionales</label>
+                                    <textarea 
+                                        id="appointment-notes" 
+                                        name="appointmentNotes" 
+                                        class="form-textarea" 
+                                        rows="4"
+                                        placeholder="Describa brevemente sus síntomas o cualquier información adicional..."></textarea>
+                                    <div class="form-error" id="appointment-notes-error"></div>
+                                </div>
+                            </div>
+
+                            <!-- Terms and Conditions -->
+                            <div class="form-section">
+                                <div class="form-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="terms" name="terms" required>
+                                        <span class="checkbox-custom"></span>
+                                        <span class="checkbox-text">
+                                            Acepto los <a href="#" class="link">términos y condiciones</a> 
+                                            y la <a href="#" class="link">política de privacidad</a>
+                                        </span>
+                                    </label>
+                                    <div class="form-error" id="terms-error"></div>
+                                </div>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <div class="form-actions">
+                                <button type="button" class="btn btn-outline" onclick="history.back()">
+                                    Cancelar
+                                </button>
+                                <button type="submit" class="btn btn-primary" id="submit-appointment">
+                                    <span class="btn-text">Agendar Cita</span>
+                                    <div class="btn-loading" style="display: none;">
+                                        <svg class="spinner" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                            <circle cx="12" cy="12" r="10"></circle>
+                                            <path d="m12 6 0 6 4 2"></path>
+                                        </svg>
+                                    </div>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Confirmation Modal -->
+    <div class="modal" id="confirmation-modal" style="display: none;">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Confirmar Cita</h3>
+            </div>
+            <div class="modal-body">
+                <div class="confirmation-details">
+                    <div class="success-icon">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <circle cx="12" cy="12" r="10" stroke="#10B981" fill="#F0FDF4"></circle>
+                            <path d="m9 12 2 2 4-4" stroke="#10B981" stroke-width="2"></path>
+                        </svg>
+                    </div>
+                    <h4>¡Cita Agendada Exitosamente!</h4>
+                    <p>Su cita ha sido programada. Recibirá un correo de confirmación con todos los detalles.</p>
+                    
+                    <div class="appointment-summary" id="appointment-summary">
+                        <!-- Summary will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="window.location.href='index.html'">
+                    Ir al Inicio
+                </button>
+                <button class="btn btn-primary" onclick="window.location.href='profile.html'">
+                    Ver Mis Citas
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loading-overlay" style="display: none;">
+        <div class="loading-spinner">
+            <div class="spinner"></div>
+            <p class="loading-text">Agendando cita...</p>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="scripts/utils.js"></script>
+    <script src="scripts/api.js"></script>
+    <script src="scripts/components.js"></script>
+    <script src="scripts/appointment.js"></script>
+</body>
+</html>

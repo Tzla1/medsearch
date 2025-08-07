@@ -1,0 +1,10 @@
+<!-- Placeholder for hero doctor image -->
+<!-- In a real implementation, this would be a actual image file -->
+<!-- For demo purposes, we'll create a CSS-based placeholder -->
+<svg width="400" height="400" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="400" fill="#F3F4F6"/>
+  <circle cx="200" cy="160" r="60" fill="#E5E7EB"/>
+  <path d="M100 340C100 290 145 250 200 250C255 250 300 290 300 340V380H100V340Z" fill="#E5E7EB"/>
+  <text x="200" y="200" text-anchor="middle" font-family="Arial" font-size="12" fill="#6B7280">Doctor Image</text>
+  <text x="200" y="220" text-anchor="middle" font-family="Arial" font-size="10" fill="#9CA3AF">Placeholder</text>
+</svg>

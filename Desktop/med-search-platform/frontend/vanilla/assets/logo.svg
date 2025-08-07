@@ -1,0 +1,12 @@
+<svg width="140" height="32" viewBox="0 0 140 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Medical Cross Icon -->
+  <rect x="2" y="12" width="8" height="2" rx="1" fill="#4F46E5"/>
+  <rect x="5" y="9" width="2" height="8" rx="1" fill="#4F46E5"/>
+  
+  <!-- Shield Background -->
+  <path d="M8 4L6 6V14C6 18 8 20 12 22C16 20 18 18 18 14V6L16 4H8Z" stroke="#4F46E5" stroke-width="1.5" fill="none"/>
+  
+  <!-- Text -->
+  <text x="26" y="12" font-family="Inter, sans-serif" font-size="14" font-weight="700" fill="#1F2937">Med</text>
+  <text x="26" y="24" font-family="Inter, sans-serif" font-size="14" font-weight="400" fill="#6B7280">Search</text>
+</svg>

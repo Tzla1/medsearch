@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediConsulta - Encuentra tu especialista</title>
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo">MediConsulta</div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#especialistas">¿Cómo protegemos los datos?</a></li>
+                    <li><a href="#servicios">Pregunta al Experto</a></li>
+                    <li><a href="#contacto">Mi cuenta ▼</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1>Encuentra tu especialista y pide cita</h1>
+                <div class="hero-stats">
+                    <strong>310,000 profesionales</strong> están aquí para ayudarte.
+                </div>
+                
+                <div class="search-section">
+                    <div class="search-tabs">
+                        <button class="tab-btn" onclick="switchTab(this)">🏥 Visita presencial</button>
+                        <button class="tab-btn active" onclick="switchTab(this)">💻 En línea</button>
+                    </div>
+                    
+                    <form class="search-form" onsubmit="return handleSearch(event)">
+                        <div class="form-group">
+                            <input type="text" placeholder="especialidad, enfermedad o nombre" />
+                        </div>
+                        <div class="form-group">
+                            <select aria-label="Seleccionar ubicación">
+                                <option>p. ej. Guadalajara</option>
+                                <option>Ciudad de México</option>
+                                <option>Monterrey</option>
+                                <option>Tijuana</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="search-btn">Buscar</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="hero-illustration">
+                <div class="doctors-group">
+                    <div class="doctor-avatar">👩‍⚕</div>
+                    <div class="doctor-avatar">👨‍⚕</div>
+                    <div class="doctor-avatar">👩‍⚕</div>
+                    <div class="doctor-avatar">👨‍⚕</div>
+                    <div class="doctor-avatar">👩‍⚕</div>
+                    <div class="doctor-avatar">👨‍⚕</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="specialties" id="especialistas">
+        <div class="container">
+            <h2>Especialidades Médicas</h2>
+            <div class="specialties-grid">
+                <div class="specialty-card" onclick="openSpecialtyModal('ginecologo')">
+                    <h3>Ginecólogo</h3>
+                </div>
+                <div class="specialty-card" onclick="openSpecialtyModal('psicologo')">
+                    <h3>Psicólogo</h3>
+                </div>
+                <div class="specialty-card" onclick="openSpecialtyModal('dermatologo')">
+                    <h3>Dermatólogo</h3>
+                </div>
+                <div class="specialty-card" onclick="openSpecialtyModal('oftalmologo')">
+                    <h3>Oftalmólogo</h3>
+                </div>
+                <div class="specialty-card" onclick="openSpecialtyModal('urologo')">
+                    <h3>Urólogo</h3>
+                </div>
+                <div class="specialty-card" onclick="openSpecialtyModal('ortopedista')">
+                    <h3>Ortopedista</h3>
+                </div>
+                <div class="specialty-card" onclick="openSpecialtyModal('otorrinolaringologo')">
+                    <h3>Otorrinolaringólogo</h3>
+                </div>
+                <div class="specialty-card" onclick="openSpecialtyModal('pediatra')">
+                    <h3>Pediatra</h3>
+                </div>
+                <div class="specialty-card" onclick="openSpecialtyModal('psiquiatra')">
+                    <h3>Psiquiatra</h3>
+                </div>
+                <div class="specialty-card" onclick="openSpecialtyModal('cirujano')">
+                    <h3>Cirujano general</h3>
+                </div>
+                <div class="specialty-card" onclick="openSpecialtyModal('internista')">
+                    <h3>Internista</h3>
+                </div>
+                <div class="specialty-card" onclick="openSpecialtyModal('traumatologo')">
+                    <h3>Traumatólogo</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Specialty Modal -->
+    <div id="specialtyModal" class="modal" onclick="closeModalOnOutside(event, 'specialtyModal')">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" onclick="closeModal('specialtyModal')">&times;</button>
+                <h2 id="modalTitle">Especialidad Médica</h2>
+            </div>
+            <div class="modal-body">
+                <div class="specialty-description" id="modalDescription"></div>
+                <div class="doctors-section">
+                    <h3>Médicos disponibles cerca de ti</h3>
+                    <div class="doctors-list" id="doctorsList"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Calendar Modal -->
+    <div id="calendarModal" class="calendar-modal" onclick="closeModalOnOutside(event, 'calendarModal')">
+        <div class="calendar-content">
+            <div class="calendar-header">
+                <button class="close" onclick="closeModal('calendarModal')">&times;</button>
+                <h2>Agendar Cita Médica</h2>
+            </div>
+            <div class="calendar-body">
+                <div class="doctor-summary">
+                    <div class="doctor-avatar-small">👩‍⚕</div>
+                    <div>
+                        <h4 id="selectedDoctorName">Dr. Ejemplo</h4>
+                        <p id="selectedDoctorSpecialty">Especialidad</p>
+                        <p id="selectedDoctorLocation">📍 Ubicación</p>
+                    </div>
+                </div>
+
+                <div class="calendar-section">
+                    <div class="calendar-grid">
+                        <div class="calendar-header-nav">
+                            <button class="month-nav" onclick="changeMonth(-1)">‹</button>
+                            <span class="month-year" id="monthYear">Julio 2024</span>
+                            <button class="month-nav" onclick="changeMonth(1)">›</button>
+                        </div>
+                        <div class="calendar-days">
+                            <div class="day-header">Vie</div>
+                            <div class="day-header">Sáb</div>
+                            <div class="day-header">Dom</div>
+                            <div class="day-header">Lun</div>
+                            <div class="day-header">Mar</div>
+                            <div class="day-header">Mié</div>
+                            <div class="day-header">Jue</div>
+                            <div id="calendarDays"></div>
+                        </div>
+                    </div>
+
+                    <div class="time-slots">
+                        <div class="time-slots-header">
+                            <span id="selectedDateText">Selecciona una fecha</span>
+                        </div>
+                        <div class="time-slots-grid" id="timeSlots"></div>
+                    </div>
+                </div>
+
+                <div class="appointment-summary">
+                    <div class="summary-item">
+                        <span>Doctor:</span>
+                        <span id="summaryDoctor">-</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Fecha:</span>
+                        <span id="summaryDate">-</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Hora:</span>
+                        <span id="summaryTime">-</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Costo:</span>
+                        <span id="summaryCost">-</span>
+                    </div>
+                </div>
+
+                <div class="appointment-actions">
+                    <button class="btn btn-outline" onclick="closeModal('calendarModal')">Cancelar</button>
+                    <button class="btn btn-success" onclick="confirmAppointment()">Confirmar Cita</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="services" id="servicios">
+        <div class="container">
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">🔍</div>
+                    <h3>Encuentra tu especialista</h3>
+                    <p>Las opiniones reales de miles de pacientes te ayudarán a tomar siempre la mejor decisión</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">📅</div>
+                    <h3>Pide cita de forma fácil</h3>
+                    <p>Elige la hora que prefieras y pide cita sin necesidad de llamar. Es fácil, cómodo y muy rápido</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">💰</div>
+                    <h3>Sin costos añadidos</h3>
+                    <p>La reserva de cita es un servicio gratuito de MediConsulta</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer" id="contacto">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Especialidades</h3>
+                    <ul>
+                        <li><a href="#">Cardiología</a></li>
+                        <li><a href="#">Neurología</a></li>
+                        <li><a href="#">Oncología</a></li>
+                        <li><a href="#">Pediatría</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Servicios</h3>
+                    <ul>
+                        <li><a href="#">Consulta en línea</a></li>
+                        <li><a href="#">Citas médicas</a></li>
+                        <li><a href="#">Segundo opinión</a></li>
+                        <li><a href="#">Estudios médicos</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Empresa</h3>
+                    <ul>
+                        <li><a href="#">Acerca de nosotros</a></li>
+                        <li><a href="#">Contacto</a></li>
+                        <li><a href="#">Términos y condiciones</a></li>
+                        <li><a href="#">Privacidad</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Ayuda</h3>
+                    <ul>
+                        <li><a href="#">Centro de ayuda</a></li>
+                        <li><a href="#">¿Cómo funciona?</a></li>
+                        <li><a href="#">Preguntas frecuentes</a></li>
+                        <li><a href="#">Soporte</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 MediConsulta. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts de la aplicación -->
+    <script src="scripts/api.js"></script>
+    <script src="scripts/app.js"></script>
+</body>
+</html>

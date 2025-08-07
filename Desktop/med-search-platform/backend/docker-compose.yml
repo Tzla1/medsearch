@@ -1,0 +1,62 @@
+version: '3.8'
+
+services:
+  # Servicio MySQL para desarrollo
+  mysql:
+    image: mysql:8.0
+    container_name: med_search_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: med_search_db
+      MYSQL_USER: med_search_user
+      MYSQL_PASSWORD: secure_password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./src/database/migrations:/docker-entrypoint-initdb.d
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+
+  # Servicio Redis para caché (futuro)
+  redis:
+    image: redis:7-alpine
+    container_name: med_search_redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+
+  # Servicio Node.js Backend
+  backend:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: med_search_backend
+    restart: unless-stopped
+    ports:
+      - "3001:3001"
+    environment:
+      NODE_ENV: development
+      DB_HOST: mysql
+      DB_USER: med_search_user
+      DB_PASSWORD: secure_password
+      DB_NAME: med_search_db
+    depends_on:
+      - mysql
+      - redis
+    volumes:
+      - .:/app
+      - /app/node_modules
+
+volumes:
+  mysql_data:
+    driver: local
+  redis_data:
+    driver: local
+
+networks:
+  default:
+    driver: bridge

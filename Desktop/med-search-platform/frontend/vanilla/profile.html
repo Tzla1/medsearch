@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Perfil de médico - Med Search Platform">
+    <meta name="keywords" content="perfil médico, especialista, consulta médica">
+    <title>Perfil del Médico - Med Search Platform</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/components.css">
+    <link rel="stylesheet" href="styles/responsive.css">
+</head>
+<body>
+    <!-- Header Navigation -->
+    <header class="header-main" id="header">
+        <div class="container-xl">
+            <nav class="navbar">
+                <!-- Logo -->
+                <div class="navbar-brand">
+                    <a href="index.html" class="logo-link">
+                        <img src="assets/logo.svg" alt="Med Search" class="logo" width="140" height="32">
+                        <span class="logo-text">Med Search</span>
+                    </a>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <ul class="navbar-nav desktop-nav">
+                    <li><a href="index.html" class="nav-link">Inicio</a></li>
+                    <li><a href="search.html" class="nav-link">Buscar médicos</a></li>
+                    <li><a href="index.html#especialidades" class="nav-link">Especialidades</a></li>
+                    <li><a href="index.html#contacto" class="nav-link">Contacto</a></li>
+                </ul>
+                
+                <!-- Auth Buttons -->
+                <div class="navbar-actions desktop-nav">
+                    <a href="login.html" class="btn btn-outline">Iniciar Sesión</a>
+                    <a href="register.html" class="btn btn-primary">Registrarse</a>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <button class="menu-toggle mobile-nav" aria-label="Menú" aria-expanded="false">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+            </nav>
+            
+            <!-- Mobile Navigation Menu -->
+            <div class="mobile-menu" id="mobile-menu">
+                <ul class="mobile-nav-list">
+                    <li><a href="index.html" class="mobile-nav-link">Inicio</a></li>
+                    <li><a href="search.html" class="mobile-nav-link">Buscar médicos</a></li>
+                    <li><a href="index.html#especialidades" class="mobile-nav-link">Especialidades</a></li>
+                    <li><a href="index.html#contacto" class="mobile-nav-link">Contacto</a></li>
+                    <li class="mobile-auth-buttons">
+                        <a href="login.html" class="btn btn-outline btn-full">Iniciar Sesión</a>
+                        <a href="register.html" class="btn btn-primary btn-full">Registrarse</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Breadcrumb -->
+        <section class="breadcrumb-section">
+            <div class="container-xl">
+                <nav class="breadcrumb">
+                    <a href="index.html" class="breadcrumb-link">Inicio</a>
+                    <span class="breadcrumb-separator">›</span>
+                    <a href="search.html" class="breadcrumb-link">Buscar médicos</a>
+                    <span class="breadcrumb-separator">›</span>
+                    <span class="breadcrumb-current" id="breadcrumb-doctor-name">Perfil del médico</span>
+                </nav>
+            </div>
+        </section>
+
+        <!-- Doctor Profile Header -->
+        <section class="doctor-profile-header">
+            <div class="container-xl">
+                <div class="profile-hero">
+                    <div class="profile-main">
+                        <div class="profile-photo-section">
+                            <img src="assets/default-doctor.jpg" alt="Foto del médico" class="profile-photo" id="doctor-photo">
+                            <div class="verification-badge-large" id="verification-badge">
+                                <svg class="verified-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M9 12l2 2 4-4"></path>
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                </svg>
+                                <span>Verificado</span>
+                            </div>
+                            
+                            <!-- Online Status -->
+                            <div class="online-status" id="online-status">
+                                <div class="status-indicator online"></div>
+                                <span>Disponible ahora</span>
+                            </div>
+                        </div>
+                        
+                        <div class="profile-info">
+                            <div class="profile-header">
+                                <h1 class="doctor-name-large" id="doctor-name">Cargando...</h1>
+                                <div class="doctor-rating-large" id="doctor-rating">
+                                    <div class="stars-large">
+                                        <!-- Generated by JavaScript -->
+                                    </div>
+                                    <span class="rating-number-large">--</span>
+                                    <span class="reviews-count-large">(-- reseñas)</span>
+                                </div>
+                                
+                                <!-- Quick Actions -->
+                                <div class="quick-actions">
+                                    <button class="action-btn favorite-btn" id="favorite-btn" title="Agregar a favoritos">
+                                        <svg class="heart-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                                        </svg>
+                                    </button>
+                                    <button class="action-btn share-btn" id="share-btn" title="Compartir perfil">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                            <circle cx="18" cy="5" r="3"></circle>
+                                            <circle cx="6" cy="12" r="3"></circle>
+                                            <circle cx="18" cy="19" r="3"></circle>
+                                            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                                            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="profile-specialties">
+                                <span class="specialty-badge-large" id="primary-specialty">Cargando...</span>
+                                <span class="subspecialty" id="subspecialty"></span>
+                            </div>
+                            
+                            <div class="profile-experience">
+                                <div class="experience-item">
+                                    <svg class="graduation-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                        <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                                        <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+                                    </svg>
+                                    <span id="experience-text">-- años de experiencia</span>
+                                </div>
+                                <div class="experience-item">
+                                    <svg class="certificate-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                        <polyline points="14,2 14,8 20,8"></polyline>
+                                        <line x1="16" y1="13" x2="8" y2="13"></line>
+                                        <line x1="16" y1="17" x2="8" y2="17"></line>
+                                        <polyline points="10,9 9,9 8,9"></polyline>
+                                    </svg>
+                                    <span>Certificado por Consejo Médico</span>
+                                </div>
+                                <div class="experience-item" id="license-info">
+                                    <svg class="badge-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                                    </svg>
+                                    <span id="license-number">Cédula: --</span>
+                                </div>
+                            </div>
+                            
+                            <div class="profile-location">
+                                <svg class="location-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                    <circle cx="12" cy="10" r="3"></circle>
+                                </svg>
+                                <div class="location-details">
+                                    <span class="hospital-name" id="hospital-name">--</span>
+                                    <span class="address" id="doctor-address">--</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="profile-actions">
+                        <div class="consultation-info">
+                            <div class="price-info">
+                                <span class="price-label">Consulta presencial</span>
+                                <span class="price-large" id="consultation-fee">$--</span>
+                            </div>
+                            <div class="price-info">
+                                <span class="price-label">Consulta en línea</span>
+                                <span class="price-large" id="online-fee">$--</span>
+                            </div>
+                        </div>
+                        
+                        <div class="availability-quick">
+                            <span class="availability-label">Próxima disponibilidad:</span>
+                            <span class="next-slot" id="next-availability">Cargando...</span>
+                        </div>
+                        
+                        <div class="action-buttons-large">
+                            <button class="btn btn-primary btn-large" id="schedule-appointment">
+                                <svg class="calendar-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                                </svg>
+                                Agendar Cita
+                            </button>
+                            <button class="btn btn-outline btn-large" id="send-message">
+                                <svg class="message-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                    <polyline points="22,6 12,13 2,6"></polyline>
+                                </svg>
+                                Enviar Mensaje
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Doctor Profile Content -->
+        <section class="doctor-profile-content">
+            <div class="container-xl">
+                <div class="profile-layout">
+                    <!-- Main Content -->
+                    <div class="profile-main-content">
+                        <!-- About Section -->
+                        <div class="profile-section">
+                            <h2 class="section-title">Acerca del médico</h2>
+                            <div class="bio-content" id="doctor-bio">
+                                <p>Cargando información del médico...</p>
+                            </div>
+                        </div>
+
+                        <!-- Education & Certifications -->
+                        <div class="profile-section">
+                            <h2 class="section-title">Educación y Certificaciones</h2>
+                            <div class="education-list" id="education-list">
+                                <!-- Generated by JavaScript -->
+                            </div>
+                        </div>
+
+                        <!-- Services & Specialties -->
+                        <div class="profile-section">
+                            <h2 class="section-title">Servicios y Especialidades</h2>
+                            <div class="services-grid" id="services-grid">
+                                <!-- Generated by JavaScript -->
+                            </div>
+                        </div>
+
+                        <!-- Reviews Section -->
+                        <div class="profile-section">
+                            <h2 class="section-title">Reseñas de Pacientes</h2>
+                            <div class="reviews-summary" id="reviews-summary">
+                                <!-- Generated by JavaScript -->
+                            </div>
+                            <div class="reviews-list" id="reviews-list">
+                                <!-- Generated by JavaScript -->
+                            </div>
+                            <button class="btn btn-outline" id="load-more-reviews" style="display: none;">
+                                Ver más reseñas
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Sidebar -->
+                    <aside class="profile-sidebar">
+                        <!-- Schedule Section -->
+                        <div class="sidebar-section">
+                            <h3 class="sidebar-title">Horarios de Atención</h3>
+                            <div class="schedule-list" id="schedule-list">
+                                <!-- Generated by JavaScript -->
+                            </div>
+                        </div>
+
+                        <!-- Contact Information -->
+                        <div class="sidebar-section">
+                            <h3 class="sidebar-title">Información de Contacto</h3>
+                            <div class="contact-list">
+                                <div class="contact-item">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                                    </svg>
+                                    <span id="doctor-phone">--</span>
+                                </div>
+                                <div class="contact-item">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                        <polyline points="22,6 12,13 2,6"></polyline>
+                                    </svg>
+                                    <span id="doctor-email">--</span>
+                                </div>
+                                <div class="contact-item">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                        <circle cx="12" cy="10" r="3"></circle>
+                                    </svg>
+                                    <span id="doctor-full-address">--</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Insurance Accepted -->
+                        <div class="sidebar-section">
+                            <h3 class="sidebar-title">Seguros Aceptados</h3>
+                            <div class="insurance-list" id="insurance-list">
+                                <!-- Generated by JavaScript -->
+                            </div>
+                        </div>
+
+                        <!-- Similar Doctors -->
+                        <div class="sidebar-section">
+                            <h3 class="sidebar-title">Médicos Similares</h3>
+                            <div class="similar-doctors" id="similar-doctors">
+                                <!-- Generated by JavaScript -->
+                            </div>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container-xl">
+            <div class="footer-content">
+                <!-- Footer Brand -->
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <img src="assets/logo.svg" alt="Med Search" class="logo">
+                        <span class="logo-text">Med Search</span>
+                    </div>
+                    <p class="footer-description">
+                        Conectando pacientes con los mejores profesionales de la salud.
+                    </p>
+                </div>
+                
+                <!-- Footer Links -->
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4 class="footer-title">Enlaces</h4>
+                        <ul class="footer-list">
+                            <li><a href="index.html" class="footer-link">Inicio</a></li>
+                            <li><a href="search.html" class="footer-link">Buscar médicos</a></li>
+                            <li><a href="register.html" class="footer-link">Registrarse</a></li>
+                            <li><a href="login.html" class="footer-link">Iniciar sesión</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4 class="footer-title">Soporte</h4>
+                        <ul class="footer-list">
+                            <li><a href="#" class="footer-link">Centro de ayuda</a></li>
+                            <li><a href="#" class="footer-link">Contacto</a></li>
+                            <li><a href="#" class="footer-link">Términos de uso</a></li>
+                            <li><a href="#" class="footer-link">Privacidad</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Footer Bottom -->
+            <div class="footer-bottom">
+                <p class="footer-copyright">
+                    © 2024 Med Search Platform. Todos los derechos reservados.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modals -->
+    
+    <!-- Appointment Modal -->
+    <div class="modal" id="appointment-modal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Agendar Cita</h3>
+                <button class="modal-close" aria-label="Cerrar">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="appointment-form">
+                    <div class="form-group">
+                        <label class="form-label">Tipo de consulta</label>
+                        <select class="form-input" id="consultation-type">
+                            <option value="presencial">Consulta presencial</option>
+                            <option value="online">Consulta en línea</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Fecha preferida</label>
+                        <input type="date" class="form-input" id="appointment-date">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Hora preferida</label>
+                        <select class="form-input" id="appointment-time">
+                            <option value="">Seleccionar hora</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Motivo de la consulta</label>
+                        <textarea class="form-input" id="appointment-reason" rows="3" 
+                                placeholder="Describe brevemente el motivo de tu consulta"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" id="cancel-appointment">Cancelar</button>
+                <button class="btn btn-primary" id="confirm-appointment">Agendar Cita</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Message Modal -->
+    <div class="modal" id="message-modal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Enviar Mensaje</h3>
+                <button class="modal-close" aria-label="Cerrar">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="message-form">
+                    <div class="form-group">
+                        <label class="form-label">Asunto</label>
+                        <input type="text" class="form-input" id="message-subject" 
+                               placeholder="Asunto del mensaje">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Mensaje</label>
+                        <textarea class="form-input" id="message-content" rows="5" 
+                                placeholder="Escribe tu mensaje aquí..."></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" id="cancel-message">Cancelar</button>
+                <button class="btn btn-primary" id="send-message-btn">Enviar Mensaje</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loading-overlay">
+        <div class="loading-spinner">
+            <div class="spinner"></div>
+            <p class="loading-text">Cargando perfil del médico...</p>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="scripts/utils.js"></script>
+    <script src="scripts/api.js"></script>
+    <script src="scripts/components.js"></script>
+    <script src="scripts/profile.js"></script>
+</body>
+</html>

@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Iniciar sesión - Med Search Platform">
+    <meta name="keywords" content="login, iniciar sesión, acceso, cuenta médica">
+    <title>Iniciar Sesión - Med Search Platform</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/components.css">
+    <link rel="stylesheet" href="styles/responsive.css">
+</head>
+<body class="auth-body">
+    <!-- Header Navigation -->
+    <header class="header-minimal">
+        <div class="container-xl">
+            <nav class="navbar-minimal">
+                <!-- Logo -->
+                <div class="navbar-brand">
+                    <a href="index.html" class="logo-link">
+                        <img src="assets/logo.svg" alt="Med Search" class="logo" width="140" height="32">
+                        <span class="logo-text">Med Search</span>
+                    </a>
+                </div>
+                
+                <!-- Back Link -->
+                <a href="index.html" class="back-link">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <polyline points="15,18 9,12 15,6"></polyline>
+                    </svg>
+                    Volver al inicio
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="auth-main">
+        <div class="auth-container">
+            <!-- Auth Card -->
+            <div class="auth-card">
+                <div class="auth-header">
+                    <div class="auth-logo">
+                        <img src="assets/logo.svg" alt="Med Search" class="auth-logo-img">
+                    </div>
+                    <h1 class="auth-title">Iniciar Sesión</h1>
+                    <p class="auth-subtitle">Accede a tu cuenta para continuar</p>
+                </div>
+                
+                <!-- Login Form -->
+                <form class="auth-form" id="login-form" novalidate>
+                    <!-- Email Field -->
+                    <div class="form-group">
+                        <label for="email" class="form-label required">Correo electrónico</label>
+                        <div class="input-wrapper">
+                            <input 
+                                type="email" 
+                                id="email"
+                                name="email"
+                                class="form-input"
+                                placeholder="tu@email.com"
+                                autocomplete="email"
+                                required>
+                            <svg class="input-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                <polyline points="22,6 12,13 2,6"></polyline>
+                            </svg>
+                        </div>
+                        <div class="form-error" id="email-error"></div>
+                    </div>
+                    
+                    <!-- Password Field -->
+                    <div class="form-group">
+                        <label for="password" class="form-label required">Contraseña</label>
+                        <div class="input-wrapper">
+                            <input 
+                                type="password" 
+                                id="password"
+                                name="password"
+                                class="form-input"
+                                placeholder="••••••••"
+                                autocomplete="current-password"
+                                required>
+                            <button type="button" class="password-toggle" id="password-toggle" aria-label="Mostrar contraseña">
+                                <svg class="eye-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                    <circle cx="12" cy="12" r="3"></circle>
+                                </svg>
+                                <svg class="eye-off-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="display: none;">
+                                    <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+                                    <line x1="1" y1="1" x2="23" y2="23"></line>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="form-error" id="password-error"></div>
+                    </div>
+                    
+                    <!-- Form Options -->
+                    <div class="form-options">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="remember" name="remember">
+                            <span class="checkbox-custom"></span>
+                            <span class="checkbox-text">Recordarme</span>
+                        </label>
+                        <a href="#" class="forgot-link" id="forgot-password">¿Olvidaste tu contraseña?</a>
+                    </div>
+                    
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn btn-primary btn-full" id="login-btn">
+                        <span class="btn-text">Iniciar Sesión</span>
+                        <div class="btn-loading" style="display: none;">
+                            <svg class="spinner" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <path d="m12 6 0 6 4 2"></path>
+                            </svg>
+                        </div>
+                    </button>
+                    
+                    <!-- Form Error -->
+                    <div class="form-error-global" id="form-error" style="display: none;"></div>
+                </form>
+                
+                <!-- Social Login -->
+                <div class="auth-divider">
+                    <span>o continúa con</span>
+                </div>
+                
+                <div class="social-buttons">
+                    <button type="button" class="btn btn-social" id="google-login">
+                        <svg class="google-icon" width="20" height="20" viewBox="0 0 24 24">
+                            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                        </svg>
+                        Google
+                    </button>
+                    <button type="button" class="btn btn-social" id="facebook-login">
+                        <svg class="facebook-icon" width="20" height="20" viewBox="0 0 24 24" fill="#1877F2">
+                            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                        </svg>
+                        Facebook
+                    </button>
+                </div>
+                
+                <!-- Sign Up Link -->
+                <div class="auth-footer">
+                    <span>¿No tienes cuenta? </span>
+                    <a href="register.html" class="auth-link">Regístrate aquí</a>
+                </div>
+            </div>
+            
+            <!-- Auth Illustration -->
+            <div class="auth-illustration">
+                <div class="illustration-container">
+                    <div class="illustration-image">
+                        <!-- Medical illustration SVG -->
+                        <svg width="400" height="300" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#3B82F6;stop-opacity:0.8" />
+                                    <stop offset="100%" style="stop-color:#1D4ED8;stop-opacity:0.6" />
+                                </linearGradient>
+                            </defs>
+                            
+                            <!-- Background circles -->
+                            <circle cx="100" cy="80" r="60" fill="url(#grad1)" opacity="0.1"/>
+                            <circle cx="320" cy="180" r="40" fill="url(#grad1)" opacity="0.15"/>
+                            <circle cx="80" cy="220" r="30" fill="url(#grad1)" opacity="0.2"/>
+                            
+                            <!-- Doctor figure -->
+                            <g transform="translate(150, 50)">
+                                <!-- Doctor body -->
+                                <rect x="30" y="120" width="40" height="80" rx="20" fill="#3B82F6" opacity="0.8"/>
+                                
+                                <!-- Doctor head -->
+                                <circle cx="50" cy="90" r="25" fill="#FED7AA"/>
+                                
+                                <!-- Stethoscope -->
+                                <path d="M35 110 Q25 120 25 135 Q25 145 35 145 Q45 145 45 135 Q45 125 55 115" 
+                                      stroke="#374151" stroke-width="3" fill="none"/>
+                                <circle cx="25" cy="135" r="8" fill="#374151"/>
+                                
+                                <!-- Medical cross -->
+                                <g transform="translate(15, 140)">
+                                    <rect x="8" y="5" width="4" height="15" fill="white"/>
+                                    <rect x="3" y="10" width="14" height="4" fill="white"/>
+                                </g>
+                            </g>
+                            
+                            <!-- Medical icons floating -->
+                            <g opacity="0.6">
+                                <!-- Heart -->
+                                <path d="M50 150 C50 140, 70 140, 70 150 C70 140, 90 140, 90 150 C90 170, 70 180, 70 180 C70 180, 50 170, 50 150 Z" 
+                                      fill="#EF4444"/>
+                                
+                                <!-- Plus signs -->
+                                <g stroke="#10B981" stroke-width="3">
+                                    <line x1="300" y1="60" x2="300" y2="80"/>
+                                    <line x1="290" y1="70" x2="310" y2="70"/>
+                                </g>
+                                
+                                <g stroke="#F59E0B" stroke-width="2">
+                                    <line x1="350" y1="240" x2="350" y2="255"/>
+                                    <line x1="342.5" y1="247.5" x2="357.5" y2="247.5"/>
+                                </g>
+                            </g>
+                        </svg>
+                    </div>
+                    
+                    <div class="illustration-content">
+                        <h2>Conecta con los mejores médicos</h2>
+                        <p>Accede a tu cuenta para gestionar citas, ver tu historial y comunicarte directamente con profesionales de la salud verificados.</p>
+                        
+                        <div class="illustration-features">
+                            <div class="feature-item">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M9 11H5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2h-4"></path>
+                                    <polyline points="9,11 12,14 15,11"></polyline>
+                                    <line x1="12" y1="14" x2="12" y2="3"></line>
+                                </svg>
+                                <span>Perfil seguro y privado</span>
+                            </div>
+                            <div class="feature-item">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                                </svg>
+                                <span>Gestión de citas fácil</span>
+                            </div>
+                            <div class="feature-item">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="12" cy="7" r="4"></circle>
+                                </svg>
+                                <span>Comunicación directa</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Forgot Password Modal -->
+    <div class="modal" id="forgot-password-modal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Recuperar Contraseña</h3>
+                <button class="modal-close" aria-label="Cerrar">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="modal-description">
+                    Ingresa tu correo electrónico y te enviaremos un enlace para restablecer tu contraseña.
+                </p>
+                <form id="forgot-password-form">
+                    <div class="form-group">
+                        <label for="forgot-email" class="form-label">Correo electrónico</label>
+                        <input 
+                            type="email" 
+                            id="forgot-email"
+                            name="email"
+                            class="form-input"
+                            placeholder="tu@email.com"
+                            required>
+                        <div class="form-error" id="forgot-email-error"></div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" id="cancel-forgot-password">Cancelar</button>
+                <button class="btn btn-primary" id="send-reset-email">Enviar enlace</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Toast -->
+    <div class="toast toast-success" id="success-toast" style="display: none;">
+        <div class="toast-content">
+            <svg class="toast-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path d="M9 12l2 2 4-4"></path>
+                <circle cx="12" cy="12" r="10"></circle>
+            </svg>
+            <span class="toast-message">Inicio de sesión exitoso</span>
+        </div>
+        <button class="toast-close" aria-label="Cerrar">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
+    </div>
+
+    <!-- Error Toast -->
+    <div class="toast toast-error" id="error-toast" style="display: none;">
+        <div class="toast-content">
+            <svg class="toast-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="15" y1="9" x2="9" y2="15"></line>
+                <line x1="9" y1="9" x2="15" y2="15"></line>
+            </svg>
+            <span class="toast-message">Error en el inicio de sesión</span>
+        </div>
+        <button class="toast-close" aria-label="Cerrar">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loading-overlay" style="display: none;">
+        <div class="loading-spinner">
+            <div class="spinner"></div>
+            <p class="loading-text">Iniciando sesión...</p>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="scripts/utils.js"></script>
+    <script src="scripts/api.js"></script>
+    <script src="scripts/auth.js"></script>
+    <script src="scripts/login.js"></script>
+</body>
+</html>

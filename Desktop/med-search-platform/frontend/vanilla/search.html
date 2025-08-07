@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Buscar médicos especialistas - Med Search Platform">
+    <meta name="keywords" content="buscar médicos, especialistas, consulta médica">
+    <title>Buscar Médicos - Med Search Platform</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/components.css">
+    <link rel="stylesheet" href="styles/responsive.css">
+</head>
+<body>
+    <!-- Header Navigation -->
+    <header class="header-main" id="header">
+        <div class="container-xl">
+            <nav class="navbar">
+                <!-- Logo -->
+                <div class="navbar-brand">
+                    <a href="index.html" class="logo-link">
+                        <img src="assets/logo.svg" alt="Med Search" class="logo" width="140" height="32">
+                        <span class="logo-text">Med Search</span>
+                    </a>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <ul class="navbar-nav desktop-nav">
+                    <li><a href="index.html" class="nav-link">Inicio</a></li>
+                    <li><a href="index.html#especialidades" class="nav-link">Especialidades</a></li>
+                    <li><a href="index.html#como-funciona" class="nav-link">Cómo funciona</a></li>
+                    <li><a href="index.html#contacto" class="nav-link">Contacto</a></li>
+                </ul>
+                
+                <!-- Auth Buttons -->
+                <div class="navbar-actions desktop-nav">
+                    <a href="login.html" class="btn btn-outline">Iniciar Sesión</a>
+                    <a href="register.html" class="btn btn-primary">Registrarse</a>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <button class="menu-toggle mobile-nav" aria-label="Menú" aria-expanded="false">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+            </nav>
+            
+            <!-- Mobile Navigation Menu -->
+            <div class="mobile-menu" id="mobile-menu">
+                <ul class="mobile-nav-list">
+                    <li><a href="index.html" class="mobile-nav-link">Inicio</a></li>
+                    <li><a href="index.html#especialidades" class="mobile-nav-link">Especialidades</a></li>
+                    <li><a href="index.html#como-funciona" class="mobile-nav-link">Cómo funciona</a></li>
+                    <li><a href="index.html#contacto" class="mobile-nav-link">Contacto</a></li>
+                    <li class="mobile-auth-buttons">
+                        <a href="login.html" class="btn btn-outline btn-full">Iniciar Sesión</a>
+                        <a href="register.html" class="btn btn-primary btn-full">Registrarse</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Search Header -->
+        <section class="search-header">
+            <div class="container-xl">
+                <div class="search-bar-container">
+                    <form class="advanced-search-form" id="main-search-form">
+                        <div class="search-row">
+                            <div class="search-field">
+                                <label for="search-query" class="search-label">Buscar médico</label>
+                                <input 
+                                    type="text" 
+                                    id="search-query"
+                                    name="query"
+                                    placeholder="Nombre del médico o especialidad"
+                                    class="search-input-main"
+                                    autocomplete="off">
+                            </div>
+                            
+                            <div class="search-field">
+                                <label for="location" class="search-label">Ubicación</label>
+                                <input 
+                                    type="text" 
+                                    id="location"
+                                    name="location"
+                                    placeholder="Ciudad o código postal"
+                                    class="search-input-main"
+                                    value="Ciudad de México">
+                            </div>
+                            
+                            <div class="search-field">
+                                <button type="submit" class="btn btn-primary btn-search-main">
+                                    <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                        <circle cx="11" cy="11" r="8"></circle>
+                                        <path d="m21 21-4.35-4.35"></path>
+                                    </svg>
+                                    <span class="btn-text">Buscar</span>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Quick Filters -->
+                        <div class="quick-filters">
+                            <span class="filter-label">Filtros populares:</span>
+                            <button type="button" class="filter-chip" data-filter="availability" data-value="today">
+                                Disponible hoy
+                            </button>
+                            <button type="button" class="filter-chip" data-filter="consultation_type" data-value="online">
+                                Consulta online
+                            </button>
+                            <button type="button" class="filter-chip" data-filter="rating" data-value="4.5">
+                                Mejor calificado
+                            </button>
+                            <button type="button" class="filter-chip" data-filter="distance" data-value="near">
+                                Cerca de mí
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Search Results -->
+        <section class="search-results">
+            <div class="container-xl">
+                <div class="results-layout">
+                    <!-- Sidebar Filters -->
+                    <aside class="filters-sidebar" id="filters-sidebar">
+                        <div class="filters-header">
+                            <h3 class="filters-title">Filtros</h3>
+                            <button class="btn btn-outline btn-small clear-filters" id="clear-filters">
+                                Limpiar filtros
+                            </button>
+                        </div>
+                        
+                        <!-- Specialty Filter -->
+                        <div class="filter-section">
+                            <h4 class="filter-title">Especialidad</h4>
+                            <div class="filter-options" id="specialty-filters">
+                                <!-- Generated by JavaScript -->
+                            </div>
+                        </div>
+                        
+                        <!-- Price Range Filter -->
+                        <div class="filter-section">
+                            <h4 class="filter-title">Precio de consulta</h4>
+                            <div class="price-range-container">
+                                <div class="price-inputs">
+                                    <input type="number" class="price-input" id="min-price" placeholder="Min" min="0" max="2000">
+                                    <span class="price-separator">-</span>
+                                    <input type="number" class="price-input" id="max-price" placeholder="Max" min="0" max="2000">
+                                </div>
+                                <div class="price-range-slider">
+                                    <input type="range" class="range-slider" id="price-slider" min="200" max="1500" value="800">
+                                    <div class="price-display">$200 - $1500</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Experience Filter -->
+                        <div class="filter-section">
+                            <h4 class="filter-title">Experiencia</h4>
+                            <div class="filter-options">
+                                <label class="filter-radio">
+                                    <input type="radio" name="experience" value="1-5">
+                                    <span class="radio-mark"></span>
+                                    1-5 años
+                                </label>
+                                <label class="filter-radio">
+                                    <input type="radio" name="experience" value="5-10">
+                                    <span class="radio-mark"></span>
+                                    5-10 años
+                                </label>
+                                <label class="filter-radio">
+                                    <input type="radio" name="experience" value="10+">
+                                    <span class="radio-mark"></span>
+                                    Más de 10 años
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <!-- Rating Filter -->
+                        <div class="filter-section">
+                            <h4 class="filter-title">Calificación</h4>
+                            <div class="filter-options">
+                                <label class="filter-checkbox">
+                                    <input type="checkbox" data-rating="5">
+                                    <span class="checkmark"></span>
+                                    <div class="rating-filter">
+                                        <div class="stars">⭐⭐⭐⭐⭐</div>
+                                        <span>5 estrellas</span>
+                                    </div>
+                                </label>
+                                <label class="filter-checkbox">
+                                    <input type="checkbox" data-rating="4">
+                                    <span class="checkmark"></span>
+                                    <div class="rating-filter">
+                                        <div class="stars">⭐⭐⭐⭐</div>
+                                        <span>4+ estrellas</span>
+                                    </div>
+                                </label>
+                                <label class="filter-checkbox">
+                                    <input type="checkbox" data-rating="3">
+                                    <span class="checkmark"></span>
+                                    <div class="rating-filter">
+                                        <div class="stars">⭐⭐⭐</div>
+                                        <span>3+ estrellas</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <!-- Availability Filter -->
+                        <div class="filter-section">
+                            <h4 class="filter-title">Disponibilidad</h4>
+                            <div class="filter-options">
+                                <label class="filter-radio">
+                                    <input type="radio" name="availability" value="today">
+                                    <span class="radio-mark"></span>
+                                    Disponible hoy
+                                </label>
+                                <label class="filter-radio">
+                                    <input type="radio" name="availability" value="week">
+                                    <span class="radio-mark"></span>
+                                    Esta semana
+                                </label>
+                                <label class="filter-radio">
+                                    <input type="radio" name="availability" value="month">
+                                    <span class="radio-mark"></span>
+                                    Este mes
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <!-- Mobile Filter Toggle -->
+                        <button class="mobile-filters-toggle mobile-nav" id="mobile-filters-toggle">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <line x1="4" y1="21" x2="4" y2="14"></line>
+                                <line x1="4" y1="10" x2="4" y2="3"></line>
+                                <line x1="12" y1="21" x2="12" y2="12"></line>
+                                <line x1="12" y1="8" x2="12" y2="3"></line>
+                                <line x1="20" y1="21" x2="20" y2="16"></line>
+                                <line x1="20" y1="12" x2="20" y2="3"></line>
+                                <line x1="1" y1="14" x2="7" y2="14"></line>
+                                <line x1="9" y1="8" x2="15" y2="8"></line>
+                                <line x1="17" y1="16" x2="23" y2="16"></line>
+                            </svg>
+                            Filtros
+                        </button>
+                    </aside>
+                    
+                    <!-- Results Content -->
+                    <main class="results-content">
+                        <!-- Results Header -->
+                        <div class="results-header">
+                            <div class="results-count" id="results-count">
+                                <h2>Buscando médicos...</h2>
+                                <p class="results-subtitle">Cargando resultados</p>
+                            </div>
+                            <div class="results-controls">
+                                <div class="view-toggle desktop-nav">
+                                    <button class="view-btn active" data-view="list" title="Vista lista">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                            <line x1="8" y1="6" x2="21" y2="6"></line>
+                                            <line x1="8" y1="12" x2="21" y2="12"></line>
+                                            <line x1="8" y1="18" x2="21" y2="18"></line>
+                                            <line x1="3" y1="6" x2="3.01" y2="6"></line>
+                                            <line x1="3" y1="12" x2="3.01" y2="12"></line>
+                                            <line x1="3" y1="18" x2="3.01" y2="18"></line>
+                                        </svg>
+                                    </button>
+                                    <button class="view-btn" data-view="grid" title="Vista cuadrícula">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                            <rect x="3" y="3" width="7" height="7"></rect>
+                                            <rect x="14" y="3" width="7" height="7"></rect>
+                                            <rect x="14" y="14" width="7" height="7"></rect>
+                                            <rect x="3" y="14" width="7" height="7"></rect>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <select class="sort-select" id="sort-select">
+                                    <option value="relevance">Más relevante</option>
+                                    <option value="rating">Mejor calificados</option>
+                                    <option value="price_asc">Menor precio</option>
+                                    <option value="price_desc">Mayor precio</option>
+                                    <option value="experience">Más experiencia</option>
+                                    <option value="newest">Más recientes</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <!-- Active Filters -->
+                        <div class="active-filters" id="active-filters">
+                            <!-- Generated by JavaScript -->
+                        </div>
+                        
+                        <!-- Doctor Cards List -->
+                        <div class="doctors-list" id="doctors-list">
+                            <!-- Doctor cards will be generated by JavaScript -->
+                        </div>
+                        
+                        <!-- Empty State -->
+                        <div class="empty-state" id="empty-state" style="display: none;">
+                            <div class="empty-icon">
+                                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <circle cx="11" cy="11" r="8"></circle>
+                                    <path d="m21 21-4.35-4.35"></path>
+                                </svg>
+                            </div>
+                            <h3 class="empty-title">No se encontraron médicos</h3>
+                            <p class="empty-description">
+                                Intenta ajustar tus filtros de búsqueda o busca en una ubicación diferente.
+                            </p>
+                            <button class="btn btn-primary" id="clear-search">
+                                Limpiar búsqueda
+                            </button>
+                        </div>
+                        
+                        <!-- Pagination -->
+                        <nav class="pagination-nav" id="pagination-nav">
+                            <button class="btn btn-outline pagination-btn" id="prev-page" disabled>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <polyline points="15,18 9,12 15,6"></polyline>
+                                </svg>
+                                Anterior
+                            </button>
+                            <div class="page-numbers" id="page-numbers">
+                                <!-- Generated by JavaScript -->
+                            </div>
+                            <button class="btn btn-outline pagination-btn" id="next-page">
+                                Siguiente
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <polyline points="9,18 15,12 9,6"></polyline>
+                                </svg>
+                            </button>
+                        </nav>
+                    </main>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container-xl">
+            <div class="footer-content">
+                <!-- Footer Brand -->
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <img src="assets/logo.svg" alt="Med Search" class="logo">
+                        <span class="logo-text">Med Search</span>
+                    </div>
+                    <p class="footer-description">
+                        Conectando pacientes con los mejores profesionales de la salud.
+                    </p>
+                </div>
+                
+                <!-- Footer Links -->
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4 class="footer-title">Enlaces</h4>
+                        <ul class="footer-list">
+                            <li><a href="index.html" class="footer-link">Inicio</a></li>
+                            <li><a href="search.html" class="footer-link">Buscar médicos</a></li>
+                            <li><a href="register.html" class="footer-link">Registrarse</a></li>
+                            <li><a href="login.html" class="footer-link">Iniciar sesión</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4 class="footer-title">Soporte</h4>
+                        <ul class="footer-list">
+                            <li><a href="#" class="footer-link">Centro de ayuda</a></li>
+                            <li><a href="#" class="footer-link">Contacto</a></li>
+                            <li><a href="#" class="footer-link">Términos de uso</a></li>
+                            <li><a href="#" class="footer-link">Privacidad</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Footer Bottom -->
+            <div class="footer-bottom">
+                <p class="footer-copyright">
+                    © 2024 Med Search Platform. Todos los derechos reservados.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loading-overlay">
+        <div class="loading-spinner">
+            <div class="spinner"></div>
+            <p class="loading-text">Buscando médicos...</p>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="scripts/utils.js"></script>
+    <script src="scripts/api.js"></script>
+    <script src="scripts/components.js"></script>
+    <script src="scripts/search.js"></script>
+</body>
+</html>

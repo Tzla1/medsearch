@@ -1,0 +1,6 @@
+<svg width="150" height="150" viewBox="0 0 150 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="150" height="150" fill="#EBF4FF" rx="8"/>
+  <circle cx="75" cy="60" r="25" fill="#3B82F6"/>
+  <path d="M35 135C35 110 53 90 75 90C97 90 115 110 115 135V145H35V135Z" fill="#3B82F6"/>
+  <text x="75" y="125" text-anchor="middle" font-family="Arial" font-size="8" fill="white">Dr. García</text>
+</svg>

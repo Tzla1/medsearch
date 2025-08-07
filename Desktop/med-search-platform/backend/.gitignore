@@ -1,0 +1,47 @@
+# Dependencias de Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Archivos compilados TypeScript
+dist/
+build/
+*.js.map
+
+# Variables de entorno críticas
+.env
+.env.local
+.env.production
+.env.staging
+
+# Logs del sistema
+logs/
+*.log
+combined.log
+error.log
+
+# Base de datos local
+*.sqlite
+*.db
+
+# Archivos temporales del sistema
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# IDE y editores
+.vscode/
+.idea/
+*.sublime-*
+
+# Cache de herramientas
+.nyc_output/
+coverage/
+.eslintcache
+
+# Archivos de deployment
+*.tgz
+*.tar.gz
